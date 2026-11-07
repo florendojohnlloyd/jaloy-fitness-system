@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Exclusive - Gym & Sports Management (Admin)</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<aside>
+  <div class="logo"><span class="mark">FE</span><div>Fitness Exclusive<small>Gym & Sports</small></div></div>
+  <nav id="nav"></nav>
+  <div class="side-foot">
+    <a href="kiosk.html" target="_blank">Open Kiosk ↗</a>
+    <a href="kiosk.html?mode=gate" target="_blank">Open Gate Screen ↗</a>
+    <a href="member.html" target="_blank">Open Member App ↗</a>
+  </div>
+</aside>
+<main>
+  <header>
+    <h1 id="title">Dashboard</h1>
+    <div class="hdr">
+      <span class="muted">Branch</span><select id="branchSel"></select>
+      <span class="muted" id="roleLbl">Role</span><select id="roleSel"><option>Owner</option><option>FrontDesk</option><option>Trainer</option></select>
+      <div class="who" id="who"></div>
+    </div>
+  </header>
+  <div class="tabs" id="tabs"></div>
+  <div id="content"></div>
+</main>
+<div id="toast"></div>
+<script src="data.js"></script>
+<script src="face.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

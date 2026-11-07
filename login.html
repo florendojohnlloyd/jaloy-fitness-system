@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Exclusive · Staff Login</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body{display:grid;grid-template-columns:1.1fr 1fr;min-height:100vh;background:#fff}
+  .side{position:relative;background:#050505;color:#fff;overflow:hidden;padding:44px;display:flex;flex-direction:column;justify-content:space-between}
+  .side::before,.side::after{content:"";position:absolute;border-radius:50%;filter:blur(110px);animation:float 14s ease-in-out infinite}
+  .side::before{width:520px;height:520px;background:#dc2626;opacity:.45;top:-180px;left:-120px}
+  .side::after{width:380px;height:380px;background:#7f1d1d;opacity:.6;bottom:-160px;right:-80px;animation-delay:-7s}
+  @keyframes float{50%{transform:translate(40px,30px) scale(1.08)}}
+  .side>*{position:relative;z-index:1}
+  .grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 30% 40%,#000,transparent 75%)}
+  .side .logo{color:#fff;padding:0}
+  .side h1{font-size:46px;font-weight:800;letter-spacing:-1.6px;line-height:1.05;max-width:460px}
+  .side h1 em{font-style:normal;color:#ef4444}
+  .side p{color:#a3a3a3;font-size:16px;max-width:420px;margin-top:14px}
+  .feats{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .feats span{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:13px;color:#e5e5e5}
+  .side small{color:#525252;font-size:12px}
+  .form-wrap{display:grid;place-items:center;padding:32px}
+  form{width:min(380px,100%);animation:fadeUp .5s both}
+  form h2{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-bottom:4px}
+  form>p{margin-bottom:24px}
+  label.f{display:block;font-size:13px;font-weight:600;margin:12px 0 6px;color:#262626}
+  .field{position:relative}
+  .field svg.i:first-child{position:absolute;left:13px;top:13px;color:#a3a3a3;pointer-events:none}
+  .field input{padding:12px 44px 12px 40px;font-size:15px;margin:0;border-radius:12px}
+  .field .eye{position:absolute;right:8px;top:6px;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:#737373;cursor:pointer;border:none;background:none}
+  .field .eye:hover{background:#f4f4f5;color:#0a0a0a}
+  .opts{display:flex;justify-content:space-between;align-items:center;margin:14px 0 18px;font-size:13px}
+  .opts label{display:flex;align-items:center;gap:7px;cursor:pointer;color:#404040}
+  .opts input{width:auto;margin:0;accent-color:#dc2626}
+  .opts a{color:#737373;cursor:pointer;text-decoration:none}.opts a:hover{color:#dc2626}
+  .go{width:100%;padding:13px;font-size:15px;border-radius:12px}
+  .go[disabled]{opacity:.7;cursor:wait}
+  .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .err{display:none;align-items:center;gap:8px;background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:10px;padding:10px 12px;font-size:13px;margin-top:14px;animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .caps{display:none;color:#b45309;font-size:12px;margin-top:6px}
+  .mode{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#737373;margin-top:20px;padding-top:16px;border-top:1px solid #ececec}
+  .dot{width:8px;height:8px;border-radius:50%;background:#a3a3a3}.dot.on{background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.18)}.dot.off{background:#f59e0b}
+  .alt{display:flex;gap:8px;margin-top:14px}
+  .alt a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1px solid #ececec;border-radius:10px;color:#262626;text-decoration:none;font-size:13px;font-weight:500}
+  .alt a:hover{border-color:#dc2626;color:#dc2626}
+  .demo{font-size:12px;color:#737373;margin-top:12px;background:#fafafa;border:1px dashed #e5e5e5;border-radius:10px;padding:9px 11px;display:none}
+  @media(max-width:860px){body{grid-template-columns:1fr}.side{display:none}}
+</style>
+</head>
+<body>
+<section class="side"><div class="grid"></div>
+  <div class="logo"><span class="mark">FE</span><div>Fitness Exclusive<small style="color:#737373">Gym & Sports</small></div></div>
+  <div><h1>Train harder.<br>Run the gym <em>smarter.</em></h1>
+    <p>One system for members, RFID and Face ID access, classes, courts, POS and reports, across every branch.</p>
+    <div class="feats" id="feats"></div></div>
+  <small>© Fitness Exclusive · All access is recorded in the audit trail</small>
+</section>
+<div class="form-wrap">
+<form id="f" autocomplete="on">
+  <h2>Welcome back</h2>
+  <p class="muted">Log in to the admin, kiosk or gate screen.</p>
+  <label class="f" for="u">Username</label>
+  <div class="field" id="uf"></div>
+  <label class="f" for="p">Password</label>
+  <div class="field" id="pf"></div>
+  <div class="caps" id="caps">Caps Lock is on</div>
+  <div class="opts"><label><input type="checkbox" id="rem"> Remember me</label><a id="forgot">Forgot password?</a></div>
+  <button class="btn go" type="submit" id="go">Log in</button>
+  <div class="err" id="e"></div>
+  <div class="demo" id="demo"></div>
+  <div class="alt"><a href="member.html" id="memberLink"></a></div>
+  <div class="mode"><span class="dot" id="dot"></span><span id="modeTxt">Checking server...</span></div>
+</form>
+</div>
+<script src="data.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+$("feats").innerHTML=[["rfid","RFID & Face ID"],["building","Multi-branch"],["shield","Roles & audit trail"],["chart","Live reports"]].map(([i,t])=>`<span>${ic(i,15)} ${t}</span>`).join("");
+$("uf").innerHTML=`${ic("user",18)}<input id="u" placeholder="e.g. owner" autocomplete="username" autofocus>`;
+$("pf").innerHTML=`${ic("lock",18)}<input id="p" type="password" placeholder="Your password" autocomplete="current-password"><button type="button" class="eye" id="eye" title="Show password">${ic("eye",18)}</button>`;
+$("memberLink").innerHTML=`${ic("phone",15)} Member app`;
+const saved=localStorage.getItem("fe_remember_user"); if(saved){ $("u").value=saved; $("rem").checked=true; setTimeout(()=>$("p").focus(),50); }
+$("eye").onclick=()=>{ const p=$("p"), show=p.type==="password"; p.type=show?"text":"password"; $("eye").innerHTML=ic(show?"eyeoff":"eye",18); $("eye").title=show?"Hide password":"Show password"; p.focus(); };
+$("p").addEventListener("keyup",e=>{ $("caps").style.display=e.getModifierState&&e.getModifierState("CapsLock")?"block":"none"; });
+$("forgot").onclick=()=>showErr("Ask the Owner to reset your password in Settings › Users & Roles.",true);
+function showErr(m,info){ const e=$("e"); e.innerHTML=`${ic(info?"alert":"x",16)} ${esc(m)}`; e.style.display="flex"; e.style.animation="none"; void e.offsetWidth; e.style.animation=""; }
+
+// Server or offline demo?
+let online=null;
+const http=location.protocol.startsWith("http");
+(async()=>{
+  if(http){ try{ const r=await fetch("/api/state"); online=r.status===401||r.ok; }catch(e){ online=false; } } else online=false;
+  $("dot").className="dot "+(online?"on":"off");
+  $("modeTxt").textContent=online?"Connected to the central server":"Offline demo (data saved in this browser only)";
+  if(!online){ $("demo").style.display="block"; $("demo").innerHTML="Demo accounts: <b>owner</b> / owner123 · <b>frontdesk</b> / desk123 · <b>coach</b> / coach123"; }
+})();
+
+const DEMO_PW={owner:"owner123",frontdesk:"desk123",coach:"coach123"};
+$("f").onsubmit=async ev=>{
+  ev.preventDefault(); $("e").style.display="none";
+  const username=$("u").value.trim().toLowerCase(), password=$("p").value;
+  if(!username||!password) return showErr("Enter your username and password");
+  const btn=$("go"); btn.disabled=true; btn.innerHTML='<span class="spin"></span> Logging in...';
+  try{
+    if($("rem").checked) localStorage.setItem("fe_remember_user",username); else localStorage.removeItem("fe_remember_user");
+    if(online){
+      const r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json","X-Screen":"Login"},body:JSON.stringify({username,password})});
+      const j=await r.json(); if(!r.ok) throw new Error(j.error||"Login failed");
+      localStorage.setItem("fe_token",j.token);
+    } else {
+      // offline demo: accounts saved in this browser
+      db=migrate(loadLocal()); ME=null;
+      const u=db.users.find(x=>(x.username||"").toLowerCase()===username);
+      const ok=u&&(u.pwDemo?u.pwDemo===password:DEMO_PW[username]===password);
+      if(!ok){ ME={name:username||"?",role:"-"}; localAudit("Login failed","Wrong username or password"); localStorage.setItem(DB_KEY,JSON.stringify(db)); throw new Error("Wrong username or password"); }
+      ME={username:u.username,name:u.name,role:u.role}; localStorage.setItem("fe_local_user",JSON.stringify(ME));
+      localAudit("Login","Offline demo"); localStorage.setItem(DB_KEY,JSON.stringify(db));
+    }
+    btn.innerHTML=ic("check",16)+" Welcome!";
+    const next=new URLSearchParams(location.search).get("next");
+    location.href=next&&next.startsWith("/")&&!next.startsWith("//")?next:"index.html";
+  }catch(err){ showErr(err.message==="Failed to fetch"?"Cannot reach the server. Is it running?":err.message); btn.disabled=false; btn.textContent="Log in"; }
+};
+</script>
+</body>
+</html>

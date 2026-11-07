@@ -1,0 +1,4 @@
+server/fitness.db*
+server/fitness.json
+server/backups/
+node_modules/
